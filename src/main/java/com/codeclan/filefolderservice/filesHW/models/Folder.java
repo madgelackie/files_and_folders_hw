@@ -1,16 +1,31 @@
 package com.codeclan.filefolderservice.filesHW.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name="folders")
+
 public class Folder {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+    @Column(name="title")
     private String title;
-    private List<File> files;
+//    @OneToMany(mappedBy = "folder")
+//    @JsonIgnoreProperties(value=({"folder"}))
+//    private List<File> files;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    public Folder(String title, List<File> files, User user) {
+    public Folder(String title, User user) {
         this.title = title;
-        this.files = files;
+//        this.files = files;
         this.user = user;
     }
 
@@ -34,13 +49,13 @@ public class Folder {
         this.title = title;
     }
 
-    public List<File> getFiles() {
-        return files;
-    }
-
-    public void setFiles(List<File> files) {
-        this.files = files;
-    }
+//    public List<File> getFiles() {
+//        return files;
+//    }
+//
+//    public void setFiles(List<File> files) {
+//        this.files = files;
+//    }
 
     public User getUser() {
         return user;
@@ -50,7 +65,7 @@ public class Folder {
         this.user = user;
     }
 
-    public void addFile(File file){
-        this.files.add(file);
-    }
+//    public void addFile(File file){
+//        this.files.add(file);
+//    }
 }
