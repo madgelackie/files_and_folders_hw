@@ -3,6 +3,7 @@ package com.codeclan.filefolderservice.filesHW.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,13 +16,13 @@ public class User {
     private Long id;
     @Column(name="name")
     private String name;
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnoreProperties({"user"})
-//    private List<Folder> folders;
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
+    private List<Folder> folders;
 
     public User(String name) {
         this.name = name;
-//        this.folders = folders;
+        this.folders = new ArrayList<Folder>();
     }
 
     public User(){
@@ -44,15 +45,15 @@ public class User {
         this.name = name;
     }
 
-//    public List<Folder> getFolders() {
-//        return folders;
-//    }
-//
-//    public void setFolders(List<Folder> folders) {
-//        this.folders = folders;
-//    }
-//
-//    public void addFolder(Folder folder){
-//        this.folders.add(folder);
-//    }
+    public List<Folder> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
+    }
+
+    public void addFolder(Folder folder){
+        this.folders.add(folder);
+    }
 }

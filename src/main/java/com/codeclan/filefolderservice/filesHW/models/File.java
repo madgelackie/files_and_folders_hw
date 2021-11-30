@@ -1,10 +1,27 @@
 package com.codeclan.filefolderservice.filesHW.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="files")
+
 public class File {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+    @Column(name="name")
     private String name;
+    @Column(name="extension")
     private String extension;
+    @Column(name="size")
     private int size;
+    @JsonIgnoreProperties(value="file")
+    @ManyToOne
+    @JoinColumn(name="folder_id", nullable = false)
     private Folder folder;
 
     public File(String name, String extension, int size, Folder folder) {
